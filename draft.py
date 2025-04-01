@@ -1,3 +1,11 @@
+import importlib.util
+
+# Ensuring required libraries are available
+for lib in ['numpy', 'pandas']:
+    if importlib.util.find_spec(lib) is None:
+        raise ImportError(f"The required library '{lib}' is not installed. Please install it using 'pip install {lib}'.")
+
+
 import numpy as np
 import pandas as pd
 
