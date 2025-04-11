@@ -23,6 +23,9 @@ class GeometricRegressor:
         self.X_train = X
         self.y_train = y
 
+        # Convert y to a pandas Series if it's not already.
+        if not isinstance(y, pd.Series):
+          y = pd.Series(y, index=X.index)  # Assume y has the same index as X
         # Compute weights based on correlation for each column.
         for col in X.columns:
             corr_ = X[col].corr(y)
