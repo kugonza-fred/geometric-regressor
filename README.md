@@ -33,9 +33,9 @@ For each input point \(Q_i\) and its corresponding output \(T_i\):
    - These ratios normalise distances, making them **less sensitive** to scale.
 
 4. **Area-Perimeter Ratios**  
-   - **Area** of triangle \(Q_i O T_i\): \(\dfrac{1}{2}\,|Q_i|\,|T_i|\).  
-   - **Perimeter**: \(|Q_i| + |T_i| + \sqrt{Q_i^2 + T_i^2}\).  
-   - A ratio like \(\dfrac{\text{Area}}{\text{Perimeter}} = \dfrac{\frac{1}{2} |Q_i| |T_i|}{|Q_i| + |T_i| + \sqrt{Q_i^2 + T_i^2}}\) provides a **dimensionless** feature capturing shape characteristics.
+   - **Area** of triangle $\(Q_i O T_i\): \(\dfrac{1}{2}\,|Q_i|\,|T_i|\)$.  
+   - **Perimeter**: $\(|Q_i| + |T_i| + \sqrt{Q_i^2 + T_i^2}\)$.  
+   - A ratio like $\(\dfrac{\text{Area}}{\text{Perimeter}} = \dfrac{\frac{1}{2} |Q_i| |T_i|}{|Q_i| + |T_i| + \sqrt{Q_i^2 + T_i^2}}\)$ provides a **dimensionless** feature capturing shape characteristics.
 
 These parameters can be **aggregated** (e.g., averaged) across training rows for each input column to build **column-specific relationships** with the target.
 
@@ -46,7 +46,7 @@ These parameters can be **aggregated** (e.g., averaged) across training rows for
 ### **3.1 Outlier Detection Options**
 The **Geometric Regressor** class provides several strategies for **detecting** outliers:
 
-1. **Z-score**: Identifies points beyond a chosen threshold (e.g., \(\pm 3\) standard deviations).  
+1. **Z-score**: Identifies points beyond a chosen threshold (e.g., $\(\pm 3\)$ standard deviations).  
 2. **Isolation Forest**: A tree-based model that isolates outliers by random splits.  
 3. **DBSCAN**: A density-based clustering approach that flags points not belonging to dense clusters.  
 4. **Ignore Outliers**: The user can opt to **bypass** outlier detection if they’ve handled them externally or wish to keep them.
@@ -67,22 +67,22 @@ All these **outlier** options can be passed as **instance variables** or **const
 ## **4. Training the Model**
 
 ### **4.1 Correlation-Based Weights**
-- For each **input column** \(X\) and the **output** column \(T\), compute the **correlation coefficient** \(\rho_{X,T}\).  
-- Define a weight \(w_X\) (initially) as the absolute value of this correlation, normalised so that all weights sum to 1 (or another convenient scale).
+- For each **input column** $\(X\)$ and the **output** column $\(T\)$, compute the **correlation coefficient** $\(\rho_{X,T}\)$.  
+- Define a weight $\(w_X\)$ (initially) as the absolute value of this correlation, normalised so that all weights sum to 1 (or another convenient scale).
 
-\[
+$\[
 w_X = 
 \frac{|\rho_{X,T}|}
 {\sum_{Y \in \{\text{all columns}\}} 
 |\rho_{Y,T}|}.
-\]
+\]$
 
 ### **4.2 Calculating the Geometric Parameters**
 Within each column \(X\):
 
 1. For every row \(i\), compute:
-   - **Angle** \(\theta_{X,i}\).  
-   - **Distance Ratios** \(\dfrac{\sqrt{X_i^2 + T_i^2}}{|X_i|}\) (if \(X_i \neq 0\)).  
+   - **Angle** $\(\theta_{X,i}\)$.  
+   - **Distance Ratios** $\(\dfrac{\sqrt{X_i^2 + T_i^2}}{|X_i|}\) (if \(X_i \neq 0\))$.  
    - **Area-Perimeter** ratio, etc.
 2. (Optionally) **aggregate** these parameters across all rows in the training set (e.g., take the mean angle, mean ratio).  
 3. Store or learn **column-specific** references (e.g., \(\bar{\theta}_X\), \(\overline{\text{ratio}}_X\)).
@@ -91,10 +91,10 @@ Within each column \(X\):
 
 ## **5. Validation & Prediction**
 
-Given a **new row** with input \((A_{\text{new}}, B_{\text{new}}, \ldots)\), the Geometric Regressor proceeds as follows:
+Given a **new row** with input $\((A_{\text{new}}, B_{\text{new}}, \ldots)\)$, the Geometric Regressor proceeds as follows:
 
 1. **Compute Geometric Parameters** for each column \(X\). For instance, for column \(A\):
-   - \(\theta_{A,\text{new}}\), distance ratio \(\dfrac{\sqrt{A_{\text{new}}^2 + T^2}}{|A_{\text{new}}|}\), etc.  
+   - \(\theta_{A,\text{new}}\), distance ratio $\(\dfrac{\sqrt{A_{\text{new}}^2 + T^2}}{|A_{\text{new}}|}\)$, etc.  
    - In practice, \(T\) is unknown at prediction time; you can **approximate** or rely on **training-set statistics** (like the mean angle).  
    - Alternatively, you may have a direct formula or iterative method for obtaining a partial prediction.
 
@@ -104,18 +104,15 @@ Given a **new row** with input \((A_{\text{new}}, B_{\text{new}}, \ldots)\), the
 
 3. **Weighted Aggregation**  
    - Combine the **column-level** predictions using the previously computed **weights** \(w_A, w_B, \ldots\).  
-   \[
+  $ \[
    \hat{T}_{\text{final}} 
    = 
    \frac{w_A \,\hat{T}_{A} \;+\; w_B \,\hat{T}_{B} \;+\; \cdots}
-        {w_A + w_B + \cdots}.
-   \]
+        {w_A + w_B + \cdots}$.
+
+   
    - The user may choose **mean**, **median**, or **trimmed mean** across columns if they prefer a different aggregation:
-     \[
-     \hat{T}_{\text{final}} 
-     = 
-     \text{median}\bigl(\hat{T}_{A}, \hat{T}_{B}, \ldots\bigr).
-     \]
+     $\[\hat{T}_{\text{final}}      =      \text{median}\bigl(\hat{T}_{A}, \hat{T}_{B}, \ldots\bigr).   \]$
 
 ---
 
