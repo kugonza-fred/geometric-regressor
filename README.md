@@ -24,13 +24,13 @@ For each input point \(Q_i\) and its corresponding output \(T_i\):
    \]
 
 2. **Distances**  
-   - \(\overline{Q_i O} = |Q_i|\).  
-   - \(\overline{T_i O} = |T_i|\).  
-   - \(\overline{Q_i T_i} = \sqrt{Q_i^2 + T_i^2}\).
+   - $\(\overline{Q_i O} = |Q_i|\)$.  
+   - $\(\overline{T_i O} = |T_i|\)$.  
+   - $\(\overline{Q_i T_i} = \sqrt{Q_i^2 + T_i^2}\)$.
 
 3. **Distance Ratios**  
-   - Example: \(\dfrac{\overline{Q_i T_i}}{\overline{Q_i O}} = \dfrac{\sqrt{Q_i^2 + T_i^2}}{|Q_i|}\).  
-   - These ratios normalize distances, making them **less sensitive** to scale.
+   - Example: $\(\dfrac{\overline{Q_i T_i}}{\overline{Q_i O}} = \dfrac{\sqrt{Q_i^2 + T_i^2}}{|Q_i|}\)$.  
+   - These ratios normalise distances, making them **less sensitive** to scale.
 
 4. **Area-Perimeter Ratios**  
    - **Area** of triangle \(Q_i O T_i\): \(\dfrac{1}{2}\,|Q_i|\,|T_i|\).  
@@ -68,7 +68,7 @@ All these **outlier** options can be passed as **instance variables** or **const
 
 ### **4.1 Correlation-Based Weights**
 - For each **input column** \(X\) and the **output** column \(T\), compute the **correlation coefficient** \(\rho_{X,T}\).  
-- Define a weight \(w_X\) (initially) as the absolute value of this correlation, normalized so that all weights sum to 1 (or another convenient scale).
+- Define a weight \(w_X\) (initially) as the absolute value of this correlation, normalised so that all weights sum to 1 (or another convenient scale).
 
 \[
 w_X = 
