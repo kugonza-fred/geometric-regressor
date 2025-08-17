@@ -2,7 +2,7 @@
 # **Geometric Regressor Documentation**
 ---
 ## **1. Description**
-The **Geometric Regressor** is a supervised learning model that interprets input and output variables as points on a 2D coordinate plane. Each **input data point** (on the x-axis) forms a triangle with the **origin** \((0,0)\) and the **output data point** (on the y-axis). By measuring **geometric parameters** (distances, angles, areas, etc.) from these triangles, the model derives relationships that can be used to predict unknown outputs. This approach offers an **alternative perspective** to conventional regression techniques by leveraging **geometry-based features**.
+The **Geometric Regressor** is an experimental supervised learning model that interprets input and output variables as points on a 2D coordinate plane. Each **input data point** (on the x-axis) forms a triangle with the **origin** \((0,0)\) and the **output data point** (on the y-axis). By measuring **geometric parameters** (distances, angles, areas, etc.) from these triangles, the model derives relationships that can be used to predict unknown outputs. This approach offers an **alternative perspective** to conventional regression techniques by leveraging **geometry-based features**.
 
 ---
 
